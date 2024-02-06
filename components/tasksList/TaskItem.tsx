@@ -6,7 +6,6 @@ import {
   EditOutlined,
 } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { MouseEventHandler } from "react";
 
 type Props = {
   task: Task;
@@ -19,12 +18,12 @@ const TaskItem = ({ task, onToggleDone }: Props) => {
   const { setSelectedTask, setOpenTaskDialog, deleteTask } = useTasksStore();
 
   const handleEdit = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.stopPropagation();
+    event.stopPropagation(); //for preventing tasks to be clicked an toggle isDone
     setSelectedTask(task);
     setOpenTaskDialog(true);
   };
   const handleDelete = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.stopPropagation();
+    event.stopPropagation(); //for preventing tasks to be clicked an toggle isDone
     deleteTask(task.id);
   };
   return (

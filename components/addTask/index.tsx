@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 
 const AddTask = () => {
   const { setOpenTaskDialog } = useTasksStore();
+
   const handleOpenTaskDialog = () => {
     setOpenTaskDialog(true);
   };

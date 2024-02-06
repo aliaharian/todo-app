@@ -23,12 +23,16 @@ const TaskDialog = () => {
   } = useTasksStore();
   const [input, setInput] = useState<string>("");
   const [error, setError] = useState<string>("");
+
+  //get width of device for using in dialog style
   const isMobile = useMediaQuery("(max-width:480px)");
+
   const handleClose = () => {
+    // closing modal and clearing all errors and input value and possible selected task
     setOpenTaskDialog(false);
     setSelectedTask(undefined);
     setInput("");
-    setError("")
+    setError("");
   };
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     error && setError("");
@@ -39,11 +43,14 @@ const TaskDialog = () => {
       setInput(selectedTask.title);
     }
   }, [selectedTask]);
+
   const handleClickConfirm = () => {
     if (input) {
+      // create object based on we are in editing mode or not
       const taskObj: Task = selectedTask
         ? {
             ...selectedTask,
+            updatedAt: Date.now(),
             title: input,
           }
         : {
@@ -54,8 +61,9 @@ const TaskDialog = () => {
           };
       selectedTask ? updateTask(taskObj) : addTask(taskObj);
       handleClose();
-    }else{
-      setError("Task title field is required")
+    } else {
+      // show error if input is empty
+      setError("Task title field is required");
     }
   };
 
