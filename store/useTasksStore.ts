@@ -1,7 +1,7 @@
 import { Task } from "@/types/todo";
 import { create } from "zustand";
 
-type TasksState = {
+export type TasksState = {
   tasks: Task[];
   addTask: (task: Task) => void;
   updateTask: (task: Task) => void;

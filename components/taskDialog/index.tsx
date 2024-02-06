@@ -12,7 +12,10 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const TaskDialog = () => {
+type Props = {
+  open?: boolean;
+};
+const TaskDialog = ({ open }: Props) => {
   const {
     selectedTask,
     setSelectedTask,
@@ -38,6 +41,9 @@ const TaskDialog = () => {
     error && setError("");
     setInput(e.target.value);
   };
+  useEffect(() => {
+    open && setOpenTaskDialog(open);
+  }, [open, setOpenTaskDialog]);
   useEffect(() => {
     if (selectedTask) {
       setInput(selectedTask.title);
@@ -89,6 +95,7 @@ const TaskDialog = () => {
             variant="outlined"
             error={!!error}
             helperText={error}
+            placeholder="Task Title"
           />
         </div>
       </DialogContent>

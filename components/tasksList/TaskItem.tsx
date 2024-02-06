@@ -28,6 +28,8 @@ const TaskItem = ({ task, onToggleDone }: Props) => {
   };
   return (
     <div
+      role="listitem"
+      data-testid={`task${task.id}`}
       onClick={handleClickCheckbox}
       className="cursor-pointer group overflow-hidden w-full bg-gray-100 rounded-full h-16 flex items-center justify-between"
     >
@@ -46,12 +48,14 @@ const TaskItem = ({ task, onToggleDone }: Props) => {
       <div className="translate-x-28 h-full group-hover:translate-x-0 group-hover:opacity-100 transition-all flex">
         <div
           onClick={handleEdit}
+          data-testid="editBtn"
           className="group/action cursor-pointer  px-4 bg-yellow-500 flex items-center text-white"
         >
           <EditOutlined className="group-hover/action:scale-110 transition-all" />
         </div>
         <div
           onClick={handleDelete}
+          data-testid="deleteBtn"
           className="group/action cursor-pointer px-4 bg-rose-700 flex items-center text-white"
         >
           <DeleteOutlineOutlined className="group-hover/action:scale-110 transition-all" />
