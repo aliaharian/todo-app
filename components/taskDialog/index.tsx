@@ -12,11 +12,6 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-// type Props = {
-//   handleClose: () => void;
-//   open: boolean;
-//   task?: Task;
-// };
 const TaskDialog = () => {
   const {
     selectedTask,
