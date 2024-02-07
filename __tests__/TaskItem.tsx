@@ -7,7 +7,6 @@ import {
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { useTasksStore } from "@/store/useTasksStore";
-import TasksList from "@/components/tasksList";
 import TaskItem from "@/components/tasksList/TaskItem";
 import { Task } from "@/types/todo";
 

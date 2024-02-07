@@ -12,12 +12,15 @@ const task: Task = {
   title: "Task 1",
   updatedAt: Date.now(),
 };
-const renderComponent = () => {
-  render(<TaskDialog open={true} />);
+const renderComponent = async () => {
+  await act(async () => {
+    useTasksStore.getState().setOpenTaskDialog(true);
+  });
+  render(<TaskDialog />);
 };
 describe("TaskDialog component", () => {
   it("renders initial state with Add button", async () => {
-    renderComponent();
+    await renderComponent();
     const dialogTitle = screen.getByText(/Add Task/i);
     const inputField = screen.getByLabelText(/Task Title/i);
     const confirmButton = screen.getByRole("button", { name: /Add/i });
@@ -29,7 +32,7 @@ describe("TaskDialog component", () => {
     expect(cancelButton).toBeInTheDocument();
   });
   it("updates input value on change", async () => {
-    renderComponent();
+    await renderComponent();
     const inputField: HTMLInputElement =
       screen.getByPlaceholderText("Task Title");
     expect(inputField).toBeInTheDocument();
@@ -39,7 +42,7 @@ describe("TaskDialog component", () => {
     });
   });
   it("closes dialog when cancel button is clicked", async () => {
-    renderComponent();
+    await renderComponent();
     const cancelButton = screen.getByRole("button", { name: /Cancel/i });
 
     await userEvent.click(cancelButton);
@@ -49,7 +52,7 @@ describe("TaskDialog component", () => {
   });
   it("calls addTask function with correct data on confirm", async () => {
     const addTaskFn = jest.spyOn(useTasksStore.getState(), "addTask");
-    renderComponent();
+    await renderComponent();
     const inputField: HTMLInputElement =
       screen.getByPlaceholderText("Task Title");
     const confirmButton = screen.getByRole("button", { name: /Add/i });
@@ -74,7 +77,7 @@ describe("TaskDialog component", () => {
     });
 
     const updateTaskFn = jest.spyOn(useTasksStore.getState(), "updateTask");
-    renderComponent();
+    await renderComponent();
     const inputField: HTMLInputElement =
       screen.getByPlaceholderText("Task Title");
     const confirmButton = screen.getByRole("button", { name: /Edit/i });
@@ -94,7 +97,7 @@ describe("TaskDialog component", () => {
     });
   });
   it("shows error message when trying to confirm with empty input", async () => {
-    renderComponent();
+    await renderComponent();
     const confirmButton = screen.getByRole("button", { name: /Add/i });
 
     await userEvent.click(confirmButton);
